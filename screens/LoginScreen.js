@@ -12,7 +12,8 @@ const LoginScreen = () => {
     navigation.setOptions({
       headerShown: false,
     });
-  }, []);
+  }
+  , [navigation]);
 
   return (
     <LinearGradient
@@ -50,9 +51,10 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     borderRadius: 8,
-    backgroundColor: "#ffffffr",
+    backgroundColor: "#ffffff",
   },
   buttonText: {
+    fontFamily: "Helvetica Neue",
     fontSize: 16,
     fontWeight: "bold",
     color: "#CC2248",
