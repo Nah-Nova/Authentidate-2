@@ -65,6 +65,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signOut = async () => {
+    // Remove the user from the state
+    setUserInfo(null);
+    // Remove the user from AsyncStorage
+    await AsyncStorage.removeItem("user");
+  };
+
   //add it to a useEffect with response as a dependency
   useEffect(() => {
     signInWithGoogle();
@@ -77,6 +84,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         userInfo,
         promptAsync, // Make sure promptAsync is included in the context value
+        signOut, // Make sure signOut is included in the context value
       }}
     >
       {children}

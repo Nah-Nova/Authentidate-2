@@ -8,7 +8,7 @@ import useAuth from "./hooks/useAuth";
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
-  const userInfo = useAuth();
+  const { userInfo } = useAuth();
   return (
     <Stack.Navigator>
       {userInfo ? (
