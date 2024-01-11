@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        user: null,
+        userInfo,
         promptAsync, // Make sure promptAsync is included in the context value
       }}
     >
