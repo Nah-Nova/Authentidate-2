@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "40219467777",
+    "project_id": "authentidate-2",
+    "storage_bucket": "authentidate-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40219467777:android:3f10f7a2c0a9ba59d62000",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCzk6NXb6SkM6cWB-XccAu88uN4dbCMYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
