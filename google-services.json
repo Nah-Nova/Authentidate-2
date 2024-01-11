@@ -12,7 +12,12 @@
           "package_name": "host.exp.exponent"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "40219467777-o1qk9oaekkeceke0o9h2f76uho3bckui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDCzk6NXb6SkM6cWB-XccAu88uN4dbCMYU"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40219467777-o1qk9oaekkeceke0o9h2f76uho3bckui.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40219467777-4cs1k65dno9m5pkgkaiamh23nd9t0tcd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
         }
       }
     }
