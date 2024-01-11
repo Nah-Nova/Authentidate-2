@@ -11,7 +11,7 @@ const StackNavigator = () => {
   const user = useAuth();
   return (
     <Stack.Navigator>
-      {user ? (
+      {false ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Chat" component={ChatScreen} />

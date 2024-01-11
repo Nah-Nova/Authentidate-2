@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.exponent"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,6 +25,7 @@
       },
       "package": "host.exp.exponent"
     },
+    "scheme":"authentidate-2",
     "web": {
       "favicon": "./assets/favicon.png"
     },

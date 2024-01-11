@@ -1,15 +1,21 @@
-import { View, Text, Button } from 'react-native'
-import React from 'react'
-import useAuth from '../hooks/useAuth'
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import useAuth from '../hooks/useAuth'; // Make sure the import path is correct
 
 const LoginScreen = () => {
-	const { signInWithGoogle } = useAuth()
-  return (
-	<View>
-	  <Text>LoginScreen</Text>
-	  <Button onPress={signInWithGoogle} title="Login" />
-	</View>
-  )
-}
+  const { promptAsync } = useAuth();
 
-export default LoginScreen
+  return (
+    <View>
+      <Text>LoginScreen</Text>
+      <Button
+        title="Sign in with Google"
+        onPress={() => {
+          promptAsync();
+        }}
+      />
+    </View>
+  );
+};
+
+export default LoginScreen;
