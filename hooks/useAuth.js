@@ -38,6 +38,7 @@ export const AuthProvider = ({ children }) => {
     expoClientId:
       "40219467777-pfn77adlsaq4qafm9jqa70n6uo98je2u.apps.googleusercontent.com",
     useProxy: true,
+    projectNameForProxy: "@noaheutz/Authentidate-2"
   };
 
   const [request, response, promptAsync] = Google.useAuthRequest(config);

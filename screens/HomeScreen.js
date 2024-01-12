@@ -12,46 +12,17 @@ import { MessageCircle, Star, Heart, XCircle } from "react-native-feather";
 import Swiper from "react-native-deck-swiper";
 
 import useAuth from "../hooks/useAuth";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "../firebase";
-
-const DUMMY_DATA = [
-  {
-    id: 1,
-    displayName: "Chelsey Hoogeveen",
-    job: "Health sciences student",
-    age: 20,
-    picture: "https://mirri.link/pxXOYqq",
-  },
-  {
-    id: 2,
-    displayName: "Noa Heutz",
-    job: "Full Stack Developer",
-    age: 20,
-    picture: "https://mirri.link/YMRkZbO",
-  },
-  {
-    id: 3,
-    displayName: "Maurice Wijman",
-    job: "IT Network Specialist",
-    age: 20,
-    picture: "https://mirri.link/WavR8-j",
-  },
-  {
-    id: 4,
-    displayName: "Job Vreuls",
-    job: "Hue Craftsman.",
-    age: 20,
-    picture: "https://mirri.link/s2atqe5",
-  },
-  {
-    id: 5,
-    displayName: "Jaymian-Lee Reinartz",
-    job: "Software Engineer",
-    age: 20,
-    picture: "https://mirri.link/jg6Tc_d",
-  },
-];
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -67,23 +38,84 @@ const HomeScreen = () => {
     });
     return unsub;
   }, []);
-
   useEffect(() => {
     let unsub;
     const fetchCards = async () => {
-      const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
-        setProfiles(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
+      try {
+        // checks if user has already been passed on a profile
+        const passesSnapshot = await getDocs(
+          collection(db, "users", userInfo.uid, "passes")
         );
-        console.log(profiles);
-      });
+        const passes = passesSnapshot.docs.map((doc) => doc.id);
+
+        // checks if user has already liked a profile
+        const likesSnapshot = await getDocs(
+          collection(db, "users", userInfo.uid, "likes")
+        );
+        const likes = likesSnapshot.docs.map((doc) => doc.id);
+
+        // checks if user has already superliked a profile
+        const superLikesSnapshot = await getDocs(
+          collection(db, "users", userInfo.uid, "superLikes")
+        );
+        const superLikes = superLikesSnapshot.docs.map((doc) => doc.id);
+
+        const passedUserIds = passes.length > 0 ? passes : ["test"];
+        const likedUserIds = likes.length > 0 ? likes : ["test"];
+        const superLikedUserIds = superLikes.length > 0 ? superLikes : ["test"];
+
+        unsub = onSnapshot(
+          query(
+            collection(db, "users"),
+            where("id", "not-in", [
+              ...passedUserIds,
+              ...likedUserIds,
+              ...superLikedUserIds,
+            ])
+          ),
+          (snapshot) => {
+            setProfiles(
+              snapshot.docs
+                .filter((doc) => doc.id !== userInfo.uid)
+                .map((doc) => ({
+                  id: doc.id,
+                  ...doc.data(),
+                }))
+            );
+          }
+        );
+      } catch (error) {
+        console.error("Error fetching cards:", error);
+      }
     };
 
     fetchCards();
-  }, []);
+    return unsub;
+  }, [userInfo.uid]);
+
+  const swipeLeft = async (cardIndex) => {
+    if (!profiles[cardIndex]) return;
+    const userSwiped = profiles[cardIndex];
+    console.log(`User ${userSwiped.displayName} was swiped left`);
+    setDoc(doc(db, "users", userInfo.uid, "passes", userSwiped.id), userSwiped);
+  };
+
+  const swipeRight = async (cardIndex) => {
+    if (!profiles[cardIndex]) return;
+    const userSwiped = profiles[cardIndex];
+    console.log(`User ${userSwiped.displayName} was swiped right`);
+    setDoc(doc(db, "users", userInfo.uid, "swipes", userSwiped.id), userSwiped);
+  };
+
+  const swipeTop = async (cardIndex) => {
+    if (!profiles[cardIndex]) return;
+    const userSwiped = profiles[cardIndex];
+    console.log(`User ${userSwiped.displayName} was swiped top`);
+    setDoc(
+      doc(db, "users", userInfo.uid, "superLikes", userSwiped.id),
+      userSwiped
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -140,9 +172,15 @@ const HomeScreen = () => {
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
-          onSwipedLeft={() => console.log("Swiped Nope")}
-          onSwipedRight={() => console.log("Swiped Match")}
-          onSwipedTop={() => console.log("Swiped Top")}
+          onSwipedLeft={(cardIndex) => {
+            swipeLeft(cardIndex);
+          }}
+          onSwipedRight={(cardIndex) => {
+            swipeRight(cardIndex);
+          }}
+          onSwipedTop={(cardIndex) => {
+            swipeTop(cardIndex);
+          }}
           disableBottomSwipe
           overlayLabels={{
             top: {
