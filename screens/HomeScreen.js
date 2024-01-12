@@ -7,9 +7,9 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { MessageCircle } from "react-native-feather";
+import { MessageCircle, Star, Heart, XCircle } from "react-native-feather";
 import Swiper from "react-native-deck-swiper";
 
 import useAuth from "../hooks/useAuth";
@@ -48,6 +48,7 @@ const DUMMY_DATA = [
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { userInfo, signOut } = useAuth();
+  const swipeRef = useRef(null);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -92,6 +93,7 @@ const HomeScreen = () => {
       {/* Start Swipeable cards */}
       <View style={styles.cardContainer}>
         <Swiper
+          ref={swipeRef}
           containerStyle={{
             backgroundColor: "transparent",
           }}
@@ -99,10 +101,27 @@ const HomeScreen = () => {
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
-          verticalSwipe={false}
           onSwipedLeft={() => console.log("Swiped Nope")}
           onSwipedRight={() => console.log("Swiped Match")}
+          onSwipedTop={() => console.log("Swiped Top")}
+          disableBottomSwipe
           overlayLabels={{
+            top: {
+              title: "SUPER LIKE",
+              style: {
+                label: {
+                  backgroundColor: "#ffffff",
+                  color: "#F27121",
+                  fontSize: 24,
+                  fontWeight: "bold",
+                },
+                wrapper: {
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
+              },
+            },
             left: {
               title: "NOPE",
               style: {
@@ -126,7 +145,7 @@ const HomeScreen = () => {
               style: {
                 label: {
                   backgroundColor: "#ffffff",
-                  color: "#CC2248",
+                  color: "#8A2487",
                   fontSize: 24,
                   fontWeight: "bold",
                 },
@@ -163,6 +182,49 @@ const HomeScreen = () => {
         />
       </View>
       {/* End Swipeable cards */}
+      {/* Start Buttons */}
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          marginBottom: 16,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#ffffff",
+            ...styles.bottomButton,
+          }}
+          onPress={() => {
+            swipeRef.current.swipeLeft();
+          }}
+        >
+          <XCircle stroke="#F27121" width={32} height={32} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#CC2248",
+            ...styles.bottomButton,
+          }}
+          onPress={() => {
+            swipeRef.current.swipeTop();
+          }}
+        >
+          <Heart stroke="#ffffff" width={48} height={48} fill="#ffffff" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#ffffff",
+            ...styles.bottomButton,
+          }}
+          onPress={() => {
+            swipeRef.current.swipeRight();
+          }}
+        >
+          <Star stroke="#8A2487" width={32} height={32} fill="#8A2487" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -234,5 +296,17 @@ const styles = StyleSheet.create({
   cardAge: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  bottomButton: {
+    padding: 16,
+    borderRadius: 100,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 8,
+    elevation: 8,
   },
 });
