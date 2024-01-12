@@ -6,12 +6,14 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MessageCircle, Star, Heart, XCircle } from "react-native-feather";
 import Swiper from "react-native-deck-swiper";
 
 import useAuth from "../hooks/useAuth";
+import { collection, doc, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase";
 
 const DUMMY_DATA = [
   {
@@ -43,18 +45,45 @@ const DUMMY_DATA = [
     picture: "https://mirri.link/s2atqe5",
   },
   {
-    id: 5,  
+    id: 5,
     displayName: "Jaymian-Lee Reinartz",
     job: "Software Engineer",
     age: 20,
     picture: "https://mirri.link/jg6Tc_d",
-  }
+  },
 ];
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const { userInfo, signOut } = useAuth();
+  const [profiles, setProfiles] = useState([]);
   const swipeRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const unsub = onSnapshot(doc(db, "users", userInfo.uid), (snapshot) => {
+      if (!snapshot.exists()) {
+        navigation.navigate("Modal");
+      }
+    });
+    return unsub;
+  }, []);
+
+  useEffect(() => {
+    let unsub;
+    const fetchCards = async () => {
+      const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
+        setProfiles(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
+        console.log(profiles);
+      });
+    };
+
+    fetchCards();
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -107,7 +136,7 @@ const HomeScreen = () => {
           containerStyle={{
             backgroundColor: "transparent",
           }}
-          cards={DUMMY_DATA}
+          cards={profiles}
           stackSize={5}
           cardIndex={0}
           animateCardOpacity
@@ -169,26 +198,47 @@ const HomeScreen = () => {
               },
             },
           }}
-          renderCard={(card) => (
-            <View key={card.id} style={styles.card}>
-              <Image
-                source={{ uri: card.picture }}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: 16,
-                  top: 0,
-                }}
-              />
-              <View style={styles.cardInnerContainer}>
-                <View>
-                  <Text style={styles.cardName}>{card.displayName}</Text>
-                  <Text>{card.job}</Text>
+          renderCard={(card) =>
+            card ? (
+              <View key={card.id} style={styles.card}>
+                <Image
+                  source={{ uri: card.photoURL }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 16,
+                    top: 0,
+                  }}
+                />
+                <View style={styles.cardInnerContainer}>
+                  <View>
+                    <Text style={styles.cardName}>{card.displayName}</Text>
+                    <Text>{card.job}</Text>
+                  </View>
+                  <Text style={styles.cardAge}>{card.age}</Text>
                 </View>
-                <Text style={styles.cardAge}>{card.age}</Text>
               </View>
-            </View>
-          )}
+            ) : (
+              <View style={styles.card}>
+                <Image
+                  source={{ uri: "https://mirri.link/jDzF3nr" }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 16,
+                    top: 0,
+                  }}
+                />
+                <View style={styles.cardInnerContainer}>
+                  <View>
+                    <Text style={styles.cardName}>Bhuddah</Text>
+                    <Text>Informing u there are no more profiles 🥲</Text>
+                  </View>
+                  <Text style={styles.cardAge}>14</Text>
+                </View>
+              </View>
+            )
+          }
         />
       </View>
       {/* End Swipeable cards */}

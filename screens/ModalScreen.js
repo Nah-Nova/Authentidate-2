@@ -10,6 +10,7 @@ import {
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
+import { db } from "../firebase";
 
 const ModalScreen = () => {
   const { userInfo } = useAuth();
@@ -24,7 +25,7 @@ const ModalScreen = () => {
     setDoc(doc(db, "users", userInfo.uid), {
       id: userInfo.uid,
       displayName: userInfo.displayName,
-      profileURL: picture,
+      photoURL: picture,
       job: job,
       age: age,
       timestamp: serverTimestamp(),

@@ -46,8 +46,7 @@ export const AuthProvider = ({ children }) => {
     try {
       // Attempt to retrieve user information from AsyncStorage
       const userJSON = await AsyncStorage.getItem("user");
-      console.log(JSON.stringify(userJSON, null, 2))  //log the userJSON to see what it looks like
-
+      console.log(JSON.stringify(userJSON, null, 2)); //log the userJSON to see what it looks like
       if (userJSON) {
         // If user information is found in AsyncStorage, parse it and set it in the state
         setUserInfo(JSON.parse(userJSON));
