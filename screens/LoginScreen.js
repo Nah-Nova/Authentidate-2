@@ -1,5 +1,5 @@
-import React, { useLayoutEffect } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import React from "react";
+import { Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import useAuth from "../hooks/useAuth";
@@ -7,13 +7,6 @@ import useAuth from "../hooks/useAuth";
 const LoginScreen = () => {
   const { promptAsync } = useAuth();
   const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }
-  , [navigation]);
 
   return (
     <LinearGradient

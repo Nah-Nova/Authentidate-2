@@ -1,13 +1,12 @@
 import {
   View,
   Text,
-  Button,
   SafeAreaView,
   TouchableOpacity,
   Image,
   StyleSheet,
 } from "react-native";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { MessageCircle, Star, Heart, XCircle } from "react-native-feather";
 import Swiper from "react-native-deck-swiper";
@@ -50,12 +49,6 @@ const HomeScreen = () => {
   const { userInfo, signOut } = useAuth();
   const swipeRef = useRef(null);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, [navigation]);
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* Start Header */}
@@ -71,7 +64,12 @@ const HomeScreen = () => {
             style={styles.profileImage}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.logoButton}>
+        <TouchableOpacity
+          style={styles.logoButton}
+          onPress={() => {
+            navigation.navigate("Modal");
+          }}
+        >
           <Image
             source={{
               uri: "https://mirri.link/cKC3KEw",
@@ -86,7 +84,12 @@ const HomeScreen = () => {
           }}
           style={styles.chatButton}
         >
-          <MessageCircle stroke="#CC2248" width={32} height={32} />
+          <MessageCircle
+            stroke="#CC2248"
+            width={32}
+            height={32}
+            fill="#CC2248"
+          />
         </TouchableOpacity>
       </View>
       {/* End Header */}
