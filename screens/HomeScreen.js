@@ -224,7 +224,7 @@ const HomeScreen = () => {
               style: {
                 label: {
                   backgroundColor: "#ffffff",
-                  color: "#F27121",
+                  color: "#CC2248",
                   fontSize: 24,
                   fontWeight: "bold",
                 },
@@ -240,7 +240,7 @@ const HomeScreen = () => {
               style: {
                 label: {
                   backgroundColor: "#ffffff",
-                  color: "#CC2248",
+                  color: "#F27121",
                   fontSize: 24,
                   fontWeight: "bold",
                 },
