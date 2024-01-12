@@ -19,10 +19,12 @@ import {
   getDocs,
   onSnapshot,
   query,
+  serverTimestamp,
   setDoc,
   where,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import generateId from "../lib/generateId";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -50,7 +52,7 @@ const HomeScreen = () => {
 
         // checks if user has already liked a profile
         const likesSnapshot = await getDocs(
-          collection(db, "users", userInfo.uid, "likes")
+          collection(db, "users", userInfo.uid, "swipes")
         );
         const likes = likesSnapshot.docs.map((doc) => doc.id);
 
@@ -103,6 +105,40 @@ const HomeScreen = () => {
   const swipeRight = async (cardIndex) => {
     if (!profiles[cardIndex]) return;
     const userSwiped = profiles[cardIndex];
+    const loggedInProfile = await (
+      await getDoc(doc(db, "users", userInfo.uid))
+    ).data();
+    // check if user has swiped on u
+    getDoc(doc(db, "users", userSwiped.id, "swipes", userInfo.uid)).then(
+      (documentSnapshot) => {
+        if (documentSnapshot.exists()) {
+          //User has matched with u before u matched with them
+          setDoc(
+            doc(db, "users", userInfo.uid, "swipes", userSwiped.id),
+            userSwiped
+          );
+          //CREATE MATCH!!🔥🔥
+          setDoc(doc(db, "matches", generateId(userInfo.uid, userSwiped.id)), {
+            users: {
+              [userInfo.uid]: loggedInProfile,
+              [userSwiped.id]: userSwiped,
+            },
+            usersMatched: [userInfo.uid, userSwiped.id],
+            timestamp: serverTimestamp(),
+          });
+          navigation.navigate("Match", {
+            loggedInProfile,
+            userSwiped,
+          });
+          console.log(`User ${userSwiped.displayName} has matched with u `);
+        } else {
+          //user has swiped first or u have not matched
+          console.log(
+            `U have swiped first on User ${userSwiped.displayName} or has not matched with u  `
+          );
+        }
+      }
+    );
     console.log(`User ${userSwiped.displayName} was swiped right`);
     setDoc(doc(db, "users", userInfo.uid, "swipes", userSwiped.id), userSwiped);
   };
