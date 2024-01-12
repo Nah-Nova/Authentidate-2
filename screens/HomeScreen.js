@@ -42,6 +42,13 @@ const DUMMY_DATA = [
     age: 20,
     picture: "https://mirri.link/s2atqe5",
   },
+  {
+    id: 5,  
+    displayName: "Jaymian-Lee Reinartz",
+    job: "Software Engineer",
+    age: 20,
+    picture: "https://mirri.link/jg6Tc_d",
+  }
 ];
 
 const HomeScreen = () => {
@@ -60,7 +67,7 @@ const HomeScreen = () => {
           }}
         >
           <Image
-            source={{ uri: userInfo?.picture }}
+            source={{ uri: userInfo?.photoURL }}
             style={styles.profileImage}
           />
         </TouchableOpacity>

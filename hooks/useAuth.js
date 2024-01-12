@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+  signOut as signOutFirebase,
+} from "firebase/auth";
+import { auth } from "../firebase";
 
 const AuthContext = createContext({});
 
@@ -9,6 +16,19 @@ WebBrowser.maybeCompleteAuthSession();
 
 export const AuthProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    const subscriber = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserInfo(user);
+        AsyncStorage.setItem("user", JSON.stringify(user));
+        console.log("User is signed in");
+      } else {
+        setUserInfo(null);
+      }
+    });
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   const config = {
     androidClientId:
@@ -22,42 +42,24 @@ export const AuthProvider = ({ children }) => {
 
   const [request, response, promptAsync] = Google.useAuthRequest(config);
 
-  const getUserInfo = async (token) => {
-    //absent token
-    if (!token) return;
-    //present token
-    try {
-      const response = await fetch(
-        "https://www.googleapis.com/userinfo/v2/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const user = await response.json();
-      //store user information  in Asyncstorage
-      await AsyncStorage.setItem("user", JSON.stringify(user));
-      setUserInfo(user);
-    } catch (error) {
-      console.error(
-        "Failed to fetch user data:",
-        response.status,
-        response.statusText
-      );
-    }
-  };
-
   const signInWithGoogle = async () => {
     try {
       // Attempt to retrieve user information from AsyncStorage
       const userJSON = await AsyncStorage.getItem("user");
+      console.log(JSON.stringify(userJSON, null, 2))  //log the userJSON to see what it looks like
 
       if (userJSON) {
         // If user information is found in AsyncStorage, parse it and set it in the state
         setUserInfo(JSON.parse(userJSON));
       } else if (response?.type === "success") {
-        // If no user information is found and the response type is "success" (assuming response is defined),
-        // call getUserInfo with the access token from the response
-        getUserInfo(response.authentication.accessToken);
+        // Create a Firebase credential with the AccessToken
+        const credential = GoogleAuthProvider.credential(
+          response?.authentication?.idToken,
+          response?.authentication?.accessToken
+        );
+        // Sign-in the user with the credential
+        await signInWithCredential(auth, credential);
+        console.log("User successfully signed in to Firebase!");
       }
     } catch (error) {
       // Handle any errors that occur during AsyncStorage retrieval or other operations
@@ -68,6 +70,10 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     // Remove the user from the state
     setUserInfo(null);
+    // Sign-out the user from Firebase
+    await signOutFirebase().catch((error) => {
+      console.error("Error signing out:", error);
+    });
     // Remove the user from AsyncStorage
     await AsyncStorage.removeItem("user");
   };
