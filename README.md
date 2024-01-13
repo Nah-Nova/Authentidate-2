@@ -380,7 +380,15 @@ Here are all the diagrams with added value for Authentidate, all following UML s
 ### Use Case Diagram:
 <img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://github.com/Nah-Nova/Authentidate/assets/56248103/82449ad1-c692-4fd1-aeb3-a5e297d438d6">
 
-## Data List
+### Class Diagram:
+
+### Sequence Diagram:
+
+### State Diagram:
+
+### Activity Diagram:
+
+## Data Model
 Data model for the Authentidate app. Below, you'll find a list of possible data types and the information I would like to store, organized by category based on the collections (similar to tables in SQL) in the Firestore database.
 
 As you may notice, the "users" collection does not contain authentication data. All authentication processes are handled in the auth provider (my higher-order component), ensuring that when a user logs in for the first time with their Google account, a user is created with the correct data between Google -> Firestore -> FireAuth. This is a more secure method of authentication because the user doesn't have to choose their password, and the password doesn't need to be stored in the database. This is one of the reasons why I chose Firebase.
