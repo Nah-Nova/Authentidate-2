@@ -28,6 +28,16 @@ const ChatRow = ({ matchDetails }) => {
           uri: matchedUserInfo?.photoURL,
         }}
       />
+      <View style={{ marginLeft: 4 }}>
+        <Text
+          style={{
+            fontSize: 16,
+          }}
+        >
+          {matchedUserInfo?.displayName.split(" ")[0]}
+        </Text>
+        <Text>{"Be authentic and say something!"}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -44,14 +54,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 8,
     borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 1.41,
-    elevation: 2,
   },
   profilePic: {
     borderRadius: 100,
