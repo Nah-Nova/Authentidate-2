@@ -453,6 +453,190 @@ As you may notice, the "users" collection does not contain authentication data. 
 - **answers**: Array of answers to the question.
 - **timestamp**: Server timestamp of the question.
 
+
+## Acceptance Criteria
+# Acceptance Test Report for Authentidate
+
+## Introduction
+
+The purpose of this acceptance test report is to validate the functionality and features of the Authentidate 2 mobile application developed in Expo React Native. The application aims to provide an authentic dating experience with a focus on user interaction and various features, including user authentication, matching, quiz-based matching, profile creation, secure messaging, user privacy controls, and more.
+
+## Test Objectives
+
+The acceptance testing process is conducted to ensure that the Authentidate 2 mobile application meets the specified requirements and functions as intended. The primary objectives include:
+
+1. Verify the implementation of user authentication features.
+2. Confirm the functionality of the user matching system.
+3. Validate the quiz-based matching algorithm.
+4. Ensure the creation and management of user profiles.
+5. Verify the secure messaging system between matched users.
+6. Confirm the effectiveness of user privacy controls.
+7. Validate the implementation of reporting and blocking features.
+8. Confirm adherence to community standards for respectful interactions.
+9. Ensure the availability and functionality of user reviews.
+10. Verify the implementation of safety measures, including identity verification.
+
+## Test Scope
+
+The acceptance tests will cover both completed and not implemented features of the Authentidate 2 application. The focus will be on user-facing functionalities and their integration. The features that have been implemented and will be tested include user authentication, profile creation, user matching, secure messaging, user privacy controls, and the completion of matches.
+
+## Test Environment
+
+The acceptance tests will be conducted in a controlled environment, utilizing the following:
+
+- Test Devices: iOS and Android smartphones running the latest operating systems.
+- Testing Tools: Expo Go app, Firebase console for backend validation.
+- Test Data: Test data for user profiles, matches, and messaging scenarios.
+
+## Test Cases
+
+### User Authentication
+1. **Test Case:** Verify that users can register with a valid email address and password.
+2. **Test Case:** Confirm that users can log in using their registered credentials.
+3. **Test Case:** Validate the ability of users to reset their forgotten passwords.
+
+### User Matching
+4. **Test Case:** Verify the user matching system by confirming successful matches.
+5. **Test Case:** Confirm that users can browse and view their suggested matches.
+
+### Quiz-Based Matching
+6. **Test Case:** Validate that users can answer quizzes to determine compatibility.
+7. **Test Case:** Confirm that the quiz-based matching algorithm generates accurate matches.
+
+### Profile Creation
+8. **Test Case:** Verify that users can create detailed profiles with age, job, and interests.
+9. **Test Case:** Confirm that users can upload photos to their profiles.
+
+### Secure Messaging
+10. **Test Case:** Validate the ability of matched users to securely exchange messages.
+11. **Test Case:** Confirm that users receive notifications for new messages.
+
+### User Privacy Controls
+12. **Test Case:** Verify that users have control over the visibility of their profiles.
+13. **Test Case:** Confirm that users can delete their accounts and associated data.
+
+### Reporting and Blocking
+14. **Test Case:** Validate the functionality of reporting inappropriate users.
+15. **Test Case:** Confirm that users can block other users.
+
+### Community Standards
+16. **Test Case:** Verify that the app enforces clear guidelines for respectful interactions.
+
+### User Reviews
+17. **Test Case:** Confirm that users can provide ratings and reviews for interactions.
+
+### Safety Measures
+18. **Test Case:** Validate the implementation of identity verification and safety features.
+
+## Test Execution
+
+The tests will be executed manually on iOS and Android devices using the Expo Go app. The Firebase console will be used to validate backend functionalities.
+
+Certainly! Here's a basic template for an Acceptance Test Report based on the provided information. Please note that you might need to add specific details based on your actual testing results.
+
+```markdown
+# Acceptance Test Report - Authentidate
+
+## Introduction
+The Authentidate mobile app has undergone a series of acceptance tests to ensure that it meets the specified requirements outlined in the project documentation. This report provides an overview of the testing process, highlights key features, and presents the results.
+
+## Testing Scope
+The acceptance testing focused on validating the functionalities mentioned in the user and system requirements. The testing included both positive scenarios (where features should work as intended) and negative scenarios (to check for appropriate error handling).
+
+## Test Environment
+- **Device:** [Specify the device(s) used for testing, e.g., Android emulator, iOS simulator, physical device]
+- **OS Version:** [Specify the operating system version on the test device]
+- **Browser:** [If applicable, mention the browser used for testing]
+
+## Test Cases
+
+### 1. User Authentication
+- **Test Case:** Verify that users can register with a valid email and password.
+  - **Result:** [Pass]
+- **Test Case:** Validate that users can log in with their credentials.
+  - **Result:** [Pass]
+- **Test Case:** Ensure proper handling of incorrect login credentials.
+  - **Result:** [Pass]
+
+### 2. Profile Creation
+- **Test Case:** Confirm that users can create a detailed profile with required information.
+  - **Result:** [Pass]
+- **Test Case:** Validate the ability to edit profile information.
+  - **Result:** [Pass]
+- **Test Case:** Check for appropriate error messages when required fields are not filled.
+  - **Result:** [Pass]
+
+### 3. User Matching
+- **Test Case:** Ensure that the user matching algorithm provides accurate results.
+  - **Result:** [Pass]
+- **Test Case:** Verify the functionality of swiping right and left on user profiles.
+  - **Result:** [Pass]
+- **Test Case:** Confirm that mutual likes result in a match.
+  - **Result:** [Pass]
+
+### 4. Quiz-Based Matching
+- **Test Case:** Validate that users can answer quizzes to determine compatibility.
+  - **Result:** [Fail]
+- **Test Case:** Ensure the quiz matching algorithm accurately calculates compatibility.
+  - **Result:** [Fail]
+- **Test Case:** Confirm proper handling of incomplete quizzes.
+  - **Result:** [Fail]
+
+### 5. Secure Messaging
+- **Test Case:** Verify that users can securely exchange private messages.
+  - **Result:** [Pass]
+- **Test Case:** Validate real-time message synchronization.
+  - **Result:** [Pass]
+- **Test Case:** Check for security measures in place to protect user messages.
+  - **Result:** [Pass]
+
+### 6. User Privacy
+- **Test Case:** Confirm that users have control over profile visibility and privacy settings.
+  - **Result:** [Fail]
+- **Test Case:** Ensure accurate implementation of Google OAuth for account deletion.
+  - **Result:** [Pass]
+- **Test Case:** Verify that user profile settings persist after app restart.
+  - **Result:** [Pass]
+
+### 7. Reporting and Blocking
+- **Test Case:** Validate the ability to report inappropriate users.
+  - **Result:** [Fail]
+- **Test Case:** Confirm the blocking feature prevents further communication with blocked users.
+  - **Result:** [Fail]
+- **Test Case:** Check for appropriate feedback messages after reporting or blocking.
+  - **Result:** [Fail]
+
+### 8. Community Standards
+- **Test Case:** Ensure clear guidelines for respectful interactions are visible to users.
+  - **Result:** [Pass]
+- **Test Case:** Confirm that users receive notifications regarding community standards.
+  - **Result:** [Fail]
+- **Test Case:** Validate that reported content is reviewed and appropriate actions are taken.
+  - **Result:** [Fail]
+
+## Overall Results
+
+### Completed Features
+- **User Authentication:** [Pass]
+- **Profile Creation:** [Pass]
+- **User Matching:** [Pass]
+- **Quiz-Based Matching:** [Partial]
+- **Secure Messaging:** [Pass]
+- **User Privacy:** [Pass]
+
+### Not Implemented Features
+- **User Reviews:** [Fail]
+- **Safety Measures:** [Fail]
+- **Reporting and Blocking:** [Fail]
+- **Community Standards:** [Fail]
+
+## Recommendations
+Based on the testing results, it is recommended to focus on addressing any identified issues
+
+## Conclusion
+Upon successful completion of the acceptance tests and addressing any identified issues, the Authentidate 2 application will be considered ready for deployment. The acceptance test report will serve as documentation for the verification of implemented features and functionalities. as of now, the app is not ready for deployment. the quiz-based matching algorithm is not implemented yet and the reporting and blocking features are not implemented yet. the community standards are not implemented yet and the user reviews are not implemented yet. the safety measures are not implemented yet.
+```
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
