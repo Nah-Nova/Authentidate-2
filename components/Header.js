@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ChevronLeft } from "react-native-feather";
 
-const Header = ({ title, callEnabled }) => {
+const Header = ({ title }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
