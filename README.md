@@ -384,14 +384,19 @@ Here are all the diagrams with added value for Authentidate, all following UML s
 <img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://github.com/Nah-Nova/Authentidate/assets/56248103/82449ad1-c692-4fd1-aeb3-a5e297d438d6">
 
 ### Class Diagram:
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://mirri.link/4hcGG8N">
 
 ### Sequence Diagram:
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://mirri.link/iEbtSR7">
 
 ### State Diagram:
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
 
 ### Activity Diagram:
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
 
 ### Deployment Diagram:
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
 
 ## Data Model
 Data model for the Authentidate app. Below, you'll find a list of possible data types and the information I would like to store, organized by category based on the collections (similar to tables in SQL) in the Firestore database.
