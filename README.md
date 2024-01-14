@@ -10,6 +10,9 @@ Noa Heutz
 
 ## Project Overview
 
+### Project Demo Video
+[Authentidate Demo Video]()
+
 ### Assignment Description
 
 The objective of this project is to develop a mobile application with a primary focus on user interaction and the application of various features . The app aims to provide a dating experience that prioritizes authenticity and genuine connections among users. While functionality is important, the emphasis is on exploring and applying the capabilities of mobile development frameworks and tools. The initial version of the app was developed for Android and iOS using .NET MAUI. Now developed in expo react native for android and ios.

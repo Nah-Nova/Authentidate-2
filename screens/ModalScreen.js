@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
+import * as Location from "expo-location";
+import MapView from "react-native-maps";
+import useAuth from "../hooks/useAuth";
 import { db } from "../firebase";
 
 const ModalScreen = () => {
@@ -18,6 +20,7 @@ const ModalScreen = () => {
   const [picture, setPicture] = useState(null);
   const [job, setJob] = useState(null);
   const [age, setAge] = useState(null);
+  const [location, setLocation] = useState(null);
 
   const incompleteProfile = !picture || !job || !age;
 
@@ -28,6 +31,10 @@ const ModalScreen = () => {
       photoURL: picture,
       job: job,
       age: age,
+      location: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      },
       timestamp: serverTimestamp(),
     })
       .then(() => {
@@ -38,6 +45,20 @@ const ModalScreen = () => {
         console.error("Error writing document: ", error);
       });
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log(location);
+    })();
+  }, []);
 
   return (
     <View style={styles.modalContainer}>
@@ -71,6 +92,19 @@ const ModalScreen = () => {
           keyboardType="numeric"
           maxLength={2}
         />
+        <Text style={styles.modalTitle}>4. Location</Text>
+        {location && (
+        <MapView
+          style={{ width: "100%", height: 200, borderRadius: 16 }}
+          showsUserLocation 
+          initialRegion={{
+            latitude: location?.coords.latitude,
+            longitude: location?.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+        )}
       </View>
       <TouchableOpacity
         style={[styles.modalButton, { opacity: incompleteProfile ? 0.3 : 1 }]}
