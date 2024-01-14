@@ -197,6 +197,15 @@ const HomeScreen = () => {
           onSwipedTop={() => {
             console.log("SUPER LIKE");
           }}
+          onTapCard={() => {
+            // opens profile modal for more info on user profile
+            {
+              profiles &&
+                navigation.navigate("Profile", {
+                  profile: profiles[0],
+                });
+            }
+          }}
           disableBottomSwipe
           overlayLabels={{
             top: {

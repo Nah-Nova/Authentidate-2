@@ -51,6 +51,7 @@ const ModalScreen = () => {
   const [picture, setPicture] = useState(null);
   const [job, setJob] = useState(null);
   const [age, setAge] = useState(null);
+  const [bio, setBio] = useState(null);
   const [interests, setInterests] = useState([]);
   const [location, setLocation] = useState(null);
 
@@ -58,7 +59,8 @@ const ModalScreen = () => {
 
   const handleInterestToggle = (interest) => {
     // Check if the interest is already selected
-    const isInterestSelected = selectedInterests.includes(interest);
+    const isInterestSelected =
+      selectedInterests && selectedInterests.includes(interest);
 
     // Update the selected interests array accordingly
     if (isInterestSelected) {
@@ -72,7 +74,7 @@ const ModalScreen = () => {
     }
   };
 
-  const incompleteProfile = !picture || !job || !age || !interests;
+  const incompleteProfile = !picture || !job || !age || !interests || !bio;
 
   const updateUserProfile = () => {
     setDoc(doc(db, "users", userInfo.uid), {
@@ -81,6 +83,7 @@ const ModalScreen = () => {
       photoURL: picture,
       job: job,
       age: age,
+      bio: bio,
       location: {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -102,13 +105,13 @@ const ModalScreen = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-      const { photoURL, job, age, interests } = docSnap.data();
+      const { photoURL, job, age, interests, bio } = docSnap.data();
       setPicture(photoURL);
       setJob(job);
       setAge(age);
-      setInterests(interests);
-      setSelectedInterests(interests);
+      setBio(bio);
+      setInterests(interests || []); // Initialize interests as an empty array if it's undefined
+      setSelectedInterests(interests || []); // Initialize selectedInterests as an empty array if it's undefined
     } else {
       console.log("No such document!");
     }
@@ -166,7 +169,14 @@ const ModalScreen = () => {
           keyboardType="numeric"
           maxLength={2}
         />
-        <Text style={styles.modalTitle}>4. Interests</Text>
+        <Text style={styles.modalTitle}>4. Bio</Text>
+        <TextInput
+          style={styles.modalInput}
+          placeholder="Enter your bio"
+          value={bio}
+          onChangeText={setBio}
+        />
+        <Text style={styles.modalTitle}>5. Interests</Text>
         {/* TODO:   create a list with 2 vertical colums with buttons to select interestOptions and add them to an array of interests */}
         <View style={styles.interestsContainer}>
           {interestOptions.map((interest, index) => (
@@ -174,14 +184,17 @@ const ModalScreen = () => {
               key={index}
               style={[
                 styles.interestButton,
-                selectedInterests.includes(interest) && styles.selectedInterest,
+                selectedInterests &&
+                  selectedInterests.includes(interest) &&
+                  styles.selectedInterest,
               ]}
               onPress={() => handleInterestToggle(interest)}
             >
               <Text
                 style={[
                   styles.interestButtonText,
-                  selectedInterests.includes(interest) &&
+                  selectedInterests &&
+                    selectedInterests.includes(interest) &&
                     styles.selectedInterestText,
                 ]}
               >
@@ -190,7 +203,8 @@ const ModalScreen = () => {
             </TouchableOpacity>
           ))}
         </View>
-        <Text style={styles.modalTitle}>5. Location</Text>
+
+        <Text style={styles.modalTitle}>6. Location</Text>
         {location && (
           <MapView
             style={{ width: "100%", height: 200, borderRadius: 16 }}
