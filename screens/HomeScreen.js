@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Alert,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -56,24 +57,13 @@ const HomeScreen = () => {
         );
         const likes = likesSnapshot.docs.map((doc) => doc.id);
 
-        // checks if user has already superliked a profile
-        const superLikesSnapshot = await getDocs(
-          collection(db, "users", userInfo.uid, "superLikes")
-        );
-        const superLikes = superLikesSnapshot.docs.map((doc) => doc.id);
-
         const passedUserIds = passes.length > 0 ? passes : ["test"];
         const likedUserIds = likes.length > 0 ? likes : ["test"];
-        const superLikedUserIds = superLikes.length > 0 ? superLikes : ["test"];
 
         unsub = onSnapshot(
           query(
             collection(db, "users"),
-            where("id", "not-in", [
-              ...passedUserIds,
-              ...likedUserIds,
-              ...superLikedUserIds,
-            ])
+            where("id", "not-in", [...passedUserIds, ...likedUserIds])
           ),
           (snapshot) => {
             setProfiles(
@@ -143,16 +133,6 @@ const HomeScreen = () => {
     setDoc(doc(db, "users", userInfo.uid, "swipes", userSwiped.id), userSwiped);
   };
 
-  const swipeTop = async (cardIndex) => {
-    if (!profiles[cardIndex]) return;
-    const userSwiped = profiles[cardIndex];
-    console.log(`User ${userSwiped.displayName} was swiped top`);
-    setDoc(
-      doc(db, "users", userInfo.uid, "superLikes", userSwiped.id),
-      userSwiped
-    );
-  };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* Start Header */}
@@ -214,8 +194,8 @@ const HomeScreen = () => {
           onSwipedRight={(cardIndex) => {
             swipeRight(cardIndex);
           }}
-          onSwipedTop={(cardIndex) => {
-            swipeTop(cardIndex);
+          onSwipedTop={() => {
+            console.log("SUPER LIKE");
           }}
           disableBottomSwipe
           overlayLabels={{
