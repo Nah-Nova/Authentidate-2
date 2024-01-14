@@ -32,7 +32,9 @@ const ChatList = () => {
       style={styles.container}
       data={matches}
       keyExtractor={(item) => item.id}
-	  ItemSeparatorComponent={() => <View style={{ height: 1, backgroundColor: "#000" }} />}
+      ItemSeparatorComponent={() => (
+        <View style={{ height: 1, backgroundColor: "#000" }} />
+      )}
       renderItem={({ item }) => <ChatRow matchDetails={item} />}
     /> // render the matches
   ) : (

@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import useAuth from "../hooks/useAuth";
 import getMatchedUserInfo from "../lib/getMatchedUserInfo";
+import { db } from "../firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const ChatRow = ({ matchDetails }) => {
   // get the navigation object
@@ -11,16 +13,32 @@ const ChatRow = ({ matchDetails }) => {
   const { userInfo } = useAuth();
   // set up a state variable to store the matched user's info
   const [matchedUserInfo, setMatchedUserInfo] = useState(null);
+  // last message in the chat to display in the chat row
+  const [lastMessage, setLastMessage] = useState([]);
 
   useEffect(() => {
     // uses lib function to get the matched user's info and set it to state
     setMatchedUserInfo(getMatchedUserInfo(matchDetails.users, userInfo.uid));
   }, [matchDetails, userInfo]);
 
+  // subscribe to the messages collection in firestore and update the last message state
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, "matches", matchDetails.id, "messages"),
+          orderBy("timestamp", "desc")
+        ),
+        (snapshot) => setLastMessage(snapshot.docs[0]?.data()?.message)
+      ),
+
+    [matchDetails, db]
+  );
+
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("Chat", { matchDetails })}
+      onPress={() => navigation.navigate("Message", { matchDetails })}
     >
       <Image
         style={styles.profilePic}
@@ -36,7 +54,7 @@ const ChatRow = ({ matchDetails }) => {
         >
           {matchedUserInfo?.displayName.split(" ")[0]}
         </Text>
-        <Text>{"Be authentic and say something!"}</Text>
+        <Text>{lastMessage || "New Match, be authentic say something!"}</Text>
       </View>
     </TouchableOpacity>
   );
