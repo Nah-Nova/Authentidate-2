@@ -388,6 +388,8 @@ Here are all the diagrams with added value for Authentidate, all following UML s
 
 ### Activity Diagram:
 
+### Deployment Diagram:
+
 ## Data Model
 Data model for the Authentidate app. Below, you'll find a list of possible data types and the information I would like to store, organized by category based on the collections (similar to tables in SQL) in the Firestore database.
 
