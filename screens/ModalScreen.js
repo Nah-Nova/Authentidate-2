@@ -48,6 +48,7 @@ const interestOptions = [
 const ModalScreen = () => {
   const { userInfo } = useAuth();
   const navigation = useNavigation();
+  const [displayName, setDisplayName] = useState(null);
   const [picture, setPicture] = useState(null);
   const [job, setJob] = useState(null);
   const [age, setAge] = useState(null);
@@ -79,7 +80,7 @@ const ModalScreen = () => {
   const updateUserProfile = () => {
     setDoc(doc(db, "users", userInfo.uid), {
       id: userInfo.uid,
-      displayName: userInfo.displayName,
+      displayName: displayName,
       photoURL: picture,
       job: job,
       age: age,
@@ -105,7 +106,8 @@ const ModalScreen = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const { photoURL, job, age, interests, bio } = docSnap.data();
+      const { photoURL, job, age, interests, bio, displayName } = docSnap.data();
+      setDisplayName(displayName);
       setPicture(photoURL);
       setJob(job);
       setAge(age);
@@ -146,6 +148,13 @@ const ModalScreen = () => {
         style={styles.formContainer}
         showsVerticalScrollIndicator={false}
       >
+        <Text style={styles.modalTitle}>0. Display Name</Text>
+        <TextInput
+          style={styles.modalInput}
+          placeholder="Enter your display name"
+          value={displayName}
+          onChangeText={setDisplayName}
+        />
         <Text style={styles.modalTitle}>1. Profile photo url</Text>
         <TextInput
           style={styles.modalInput}
