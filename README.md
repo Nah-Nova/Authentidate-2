@@ -147,17 +147,17 @@ for now u can use my firebase project for testing purposes.
 10. **Veiligheidsfeatures**: Implementeer features voor identiteitsverificatie en andere veiligheidsmaatregelen.
 
 ### Use Cases:
-UC1: Account beheren ✅
-UC2: Gebruiker registreren ✅
-UC3: Gebruiker inloggen ✅
-UC4: Account verwijderen ✅
-UC5: Interesse Managen ✅
-UC6: Wachtwoord vergeten ✅
-UC7: Matchen ✅
-UC8: Foto Insturen ✅
-UC9: Vragenlijst Managen ❌
-UC10: Matches Managen ✅
-UC11: Berichten sturen ✅
+1. UC1: Account beheren ✅
+2. UC2: Gebruiker registreren ✅
+3. UC3: Gebruiker inloggen ✅
+4. UC4: Account verwijderen ✅
+5. UC5: Interesse Managen ✅
+6. UC6: Wachtwoord vergeten ✅
+7. UC7: Matchen ✅
+8. UC8: Foto Insturen ✅
+9. UC9: Vragenlijst Managen ❌
+10. UC10: Matches Managen ✅
+11. UC11: Berichten sturen ✅
 
 ## Usecase Desciptions
 Hieronder volgt een uitbreiding van Use Case 1/11 en een sjabloon
