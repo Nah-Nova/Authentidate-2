@@ -106,7 +106,8 @@ const ModalScreen = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const { photoURL, job, age, interests, bio, displayName } = docSnap.data();
+      const { photoURL, job, age, interests, bio, displayName } =
+        docSnap.data();
       setDisplayName(displayName);
       setPicture(photoURL);
       setJob(job);
@@ -186,7 +187,6 @@ const ModalScreen = () => {
           onChangeText={setBio}
         />
         <Text style={styles.modalTitle}>5. Interests</Text>
-        {/* TODO:   create a list with 2 vertical colums with buttons to select interestOptions and add them to an array of interests */}
         <View style={styles.interestsContainer}>
           {interestOptions.map((interest, index) => (
             <TouchableOpacity

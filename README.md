@@ -534,7 +534,6 @@ The tests will be executed manually on iOS and Android devices using the Expo Go
 
 Certainly! Here's a basic template for an Acceptance Test Report based on the provided information. Please note that you might need to add specific details based on your actual testing results.
 
-```markdown
 # Acceptance Test Report - Authentidate
 
 ## Introduction
@@ -635,7 +634,6 @@ Based on the testing results, it is recommended to focus on addressing any ident
 
 ## Conclusion
 Upon successful completion of the acceptance tests and addressing any identified issues, the Authentidate 2 application will be considered ready for deployment. The acceptance test report will serve as documentation for the verification of implemented features and functionalities. as of now, the app is not ready for deployment. the quiz-based matching algorithm is not implemented yet and the reporting and blocking features are not implemented yet. the community standards are not implemented yet and the user reviews are not implemented yet. the safety measures are not implemented yet.
-```
 
 ## License
 
