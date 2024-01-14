@@ -11,7 +11,7 @@ Noa Heutz
 ## Project Overview
 
 ### Project Demo Video
-[Authentidate Demo Video]()
+[Authentidate Demo Video](https://youtu.be/G0W5C_MXJ0k)
 
 ### Assignment Description
 
