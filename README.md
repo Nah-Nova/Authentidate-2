@@ -398,29 +398,58 @@ Data model for the Authentidate app. Below, you'll find a list of possible data 
 
 As you may notice, the "users" collection does not contain authentication data. All authentication processes are handled in the auth provider (my higher-order component), ensuring that when a user logs in for the first time with their Google account, a user is created with the correct data between Google -> Firestore -> FireAuth. This is a more secure method of authentication because the user doesn't have to choose their password, and the password doesn't need to be stored in the database. This is one of the reasons why I chose Firebase.
 
-### users:
-- **id**: Unieke identifier voor elke gebruiker.
-- **age**: Leeftijd van de gebruiker.
-- **displayName**: Naam van de gebruiker.
-- **job**: Beroep van de gebruiker.
-- **photoUrl**: Foto van de gebruiker.
-- **timestamp**: server timestamp van de gebruiker.
-### subcollections van users:
-- **quiz**: Array van de quizzen die de gebruiker heeft ingevuld.
-- **swipes**: Array van de swipes die de gebruiker heeft gedaan.
-- **passes**: Array van de passes die de gebruiker heeft gedaan.
+### Users:
+- **id**: Unique identifier for each user.
+- **age**: Age of the user.
+- **displayName**: User's name.
+- **bio**: User's biography.
+- **job**: User's occupation.
+- **interests**: Array of user's interests.
+- **location**: Latitude and longitude of the user.
+- **photoUrl**: User's photo.
+- **timestamp**: Server timestamp of the user.
 
-### matches:
-- **MatchID**: Unieke identifier voor elke match.
-- **usersMatched**: Unieke identifiers wat een gecombineerde identifier maakt.
-- **users**: Array van de twee gebruikers die gematcht zijn.
-- **timestamp**: server timestamp van de match.
+### Subcollections of Users:
+- **quiz**: Array of quizzes the user has filled out.
+- **swipes**: Array of swipes the user has made.
+- **passes**: Array of passes the user has made.
 
-### swipes:
-- **id**: Unieke identifier voor elke swipe.
+### Matches:
+- **MatchID**: Unique identifier for each match.
+- **usersMatched**: Unique identifiers making a combined identifier.
+- **users**: Array of the two users matched.
+- **timestamp**: Server timestamp of the match.
 
-### passes:
-- **id**: Unieke identifier voor elke pass. 
+### Subcollections of Matches:
+- **messages**: Array of messages exchanged between users.
+
+### Swipes:
+- **id**: Unique identifier for each swipe.
+
+### Passes:
+- **id**: Unique identifier for each pass.
+
+### Messages:
+- **id**: Unique identifier for each message.
+- **displayName**: Name of the user who sent the message.
+- **photoURL**: Photo of the user who sent the message.
+- **message**: The content of the message.
+- **userId**: The user who sent the message.
+- **timestamp**: Server timestamp of the message.
+
+### Quizzes:
+- **id**: Unique identifier for each quiz.
+- **title**: Title of the quiz.
+- **timestamp**: Server timestamp of the quiz.
+
+### Subcollections of Quizzes:
+- **questions**: Array of questions in the quiz.
+
+### Questions:
+- **id**: Unique identifier for each question.
+- **question**: The question itself.
+- **answers**: Array of answers to the question.
+- **timestamp**: Server timestamp of the question.
 
 ## License
 
