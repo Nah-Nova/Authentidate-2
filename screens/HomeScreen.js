@@ -160,7 +160,7 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.profileImageButton}
           onPress={() => {
-            signOut();
+            navigation.navigate("Modal");
           }}
         >
           <Image
@@ -171,7 +171,7 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.logoButton}
           onPress={() => {
-            navigation.navigate("Modal");
+            signOut();
           }}
         >
           <Image

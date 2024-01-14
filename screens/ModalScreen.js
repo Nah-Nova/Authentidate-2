@@ -47,29 +47,31 @@ const ModalScreen = () => {
         resizeMode="contain"
       />
       <Text style={styles.modalText}>Welcome {userInfo?.displayName}</Text>
-      <Text style={styles.modalTitle}>1. Add profile picture url</Text>
-      <TextInput
-        style={styles.modalInput}
-        placeholder="Enter URL here"
-        value={picture}
-        onChangeText={setPicture}
-      />
-      <Text style={styles.modalTitle}>2. Add job title</Text>
-      <TextInput
-        style={styles.modalInput}
-        placeholder="Enter current occupation"
-        value={job}
-        onChangeText={setJob}
-      />
-      <Text style={styles.modalTitle}>3. Add age</Text>
-      <TextInput
-        style={styles.modalInput}
-        placeholder="Enter current age"
-        value={age}
-        onChangeText={setAge}
-        keyboardType="numeric"
-        maxLength={2}
-      />
+      <View style={styles.formContainer}>
+        <Text style={styles.modalTitle}>1. Add profile picture URL</Text>
+        <TextInput
+          style={styles.modalInput}
+          placeholder="Enter URL here"
+          value={picture}
+          onChangeText={setPicture}
+        />
+        <Text style={styles.modalTitle}>2. Add job title</Text>
+        <TextInput
+          style={styles.modalInput}
+          placeholder="Enter current occupation"
+          value={job}
+          onChangeText={setJob}
+        />
+        <Text style={styles.modalTitle}>3. Add age</Text>
+        <TextInput
+          style={styles.modalInput}
+          placeholder="Enter current age"
+          value={age}
+          onChangeText={setAge}
+          keyboardType="numeric"
+          maxLength={2}
+        />
+      </View>
       <TouchableOpacity
         style={[styles.modalButton, { opacity: incompleteProfile ? 0.3 : 1 }]}
         onPress={updateUserProfile}
@@ -90,26 +92,35 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 5,
+    paddingHorizontal: 16,
   },
   modalText: {
     fontSize: 16,
     fontWeight: "bold",
     padding: 4,
+    textAlign: "center",
+  },
+  formContainer: {
+    alignSelf: "stretch",
   },
   modalTitle: {
-    textAlign: "center",
-    padding: 16,
+    textAlign: "left",
+    paddingVertical: 8,
     fontWeight: "bold",
     fontSize: 16,
     color: "#CC2248",
   },
   modalInput: {
-    textAlign: "center",
-    paddingBottom: 4,
     fontSize: 20,
+    borderWidth: 1,
+    borderColor: "#D8D8D8",
+    borderRadius: 16,
+    padding: 16,
+    marginVertical: 8,
+    width: "100%",
   },
   modalButton: {
-    width: "80%",
+    width: "100%",
     padding: 16,
     marginBottom: 24,
     borderRadius: 16,

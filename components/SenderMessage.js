@@ -5,12 +5,13 @@ const SenderMessage = ({ message }) => {
   return (
     <View
       style={{
-        backgroundColor: "#F3F3F3",
+        backgroundColor: "#e3e3e3",
         borderBottomRightRadius: 0,
         borderRadius: 16,
         paddingVertical: 16,
-        paddingHorizontal: 8,
-        marginHorizontal: 4,
+        paddingHorizontal: 24,
+        marginHorizontal: 24,
+        marginVertical: 8,
         alignSelf: "flex-start",
         marginLeft: "auto",
       }}

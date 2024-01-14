@@ -5,12 +5,13 @@ const ReceiverMessage = ({ message }) => {
   return (
     <View
       style={{
-        backgroundColor: "#FBF0F2",
+        backgroundColor: "#FBE9ED",
         borderBottomLeftRadius: 0,
         borderRadius: 16,
         paddingVertical: 16,
-        paddingHorizontal: 8,
-        marginHorizontal: 4,
+        paddingHorizontal: 24,
+        marginHorizontal: 48,
+        marginVertical: 8,
         alignSelf: "flex-start",
       }}
     >
@@ -22,7 +23,7 @@ const ReceiverMessage = ({ message }) => {
           borderRadius: 99,
           position: "absolute",
           top: 0,
-          left: -14,
+          left: -52,
         }}
       />
       <Text>{message.message}</Text>

@@ -92,7 +92,7 @@ const MessageScreen = () => {
           <TextInput
             placeholder="Your message"
             style={styles.messageInput}
-            onChange={setInput}
+            onChangeText={setInput}
             onSubmitEditing={sendMessage}
             value={input}
           />
