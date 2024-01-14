@@ -151,7 +151,7 @@ UC1: Account beheren ✅
 UC2: Gebruiker registreren ✅
 UC3: Gebruiker inloggen ✅
 UC4: Account verwijderen ✅
-UC5: Interesse Managen ❌
+UC5: Interesse Managen ✅
 UC6: Wachtwoord vergeten ✅
 UC7: Matchen ✅
 UC8: Foto Insturen ✅
@@ -390,12 +390,9 @@ Here are all the diagrams with added value for Authentidate, all following UML s
 <img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://mirri.link/iEbtSR7">
 
 ### State Diagram:
-<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
+<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="https://mirri.link/JI9i5OX">
 
 ### Activity Diagram:
-<img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
-
-### Deployment Diagram:
 <img width="794" alt="Screenshot 2023-12-10 at 11 56 22" src="">
 
 ## Data Model
