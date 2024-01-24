@@ -45,7 +45,6 @@ Although this choice deviates from the anticipated use of SQLite and local stora
 
 - **User Authentication**: Implement secure user authentication and registration.
 - **User Matching**: Implement Matching screen with swipe actions etc like tinder
-- **Quiz-Based Matching**: Allow users to answer quizzes to determine compatibility with others.
 - **Profile Creation**: Enable users to create detailed profiles with photos and interests.
 - **Custom Quizzes**: Let users create and share their quizzes for matchmaking.
 - **Secure Messaging**: Implement private messaging between matched users.
@@ -59,6 +58,7 @@ Although this choice deviates from the anticipated use of SQLite and local stora
 ## Not Implemented Features:
 - **User Reviews**: Allow ratings and reviews for user interactions.
 - **Safety Measures**: Implement identity verification and safety features.
+- **Quiz-Based Matching**: Allow users to answer quizzes to determine compatibility with others.
 - **Reporting and Blocking**: Include features for reporting and blocking inappropriate users.
 - **Community Standards**: Enforce clear guidelines for respectful interactions.
 
